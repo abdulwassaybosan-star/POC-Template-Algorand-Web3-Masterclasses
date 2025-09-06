@@ -13,8 +13,8 @@ interface TokenMintProps {
 const Tokenmint = ({ openModal, setModalState }: TokenMintProps) => {
   const [assetName, setAssetName] = useState<string>('MasterPass Token')
   const [unitName, setUnitName] = useState<string>('MPT')
-  const [total, setTotal] = useState<string>('1000') // human-readable total (before decimals)
-  const [decimals, setDecimals] = useState<string>('0') // beginner-friendly default
+  const [total, setTotal] = useState<string>('1000') // human-readable total
+  const [decimals, setDecimals] = useState<string>('0') // beginner-friendly
 
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -51,7 +51,7 @@ const Tokenmint = ({ openModal, setModalState }: TokenMintProps) => {
       const totalBig = BigInt(total)
       const decimalsBig = BigInt(decimals)
 
-      // Convert human-readable total to base units: total * 10^decimals
+      // Convert to on-chain total
       const onChainTotal = totalBig * 10n ** decimalsBig
 
       const createResult = await algorand.send.assetCreate({
@@ -84,7 +84,7 @@ const Tokenmint = ({ openModal, setModalState }: TokenMintProps) => {
       <form method="dialog" className="modal-box">
         <h3 className="font-bold text-lg">Create a MasterPass Token (ASA)</h3>
         <p className="text-sm text-gray-600 mb-4">
-          This creates a standard fungible token on Algorand (testnet). No IPFS needed.
+          This creates a standard fungible token on Algorand TestNet. No smart contract required.
         </p>
 
         <div className="grid grid-cols-1 gap-3">
@@ -120,15 +120,13 @@ const Tokenmint = ({ openModal, setModalState }: TokenMintProps) => {
             onChange={(e) => setDecimals(e.target.value)}
           />
           <p className="text-xs text-gray-500">
-            On-chain total = <code>total × 10^decimals</code>.
+            On-chain total = <code>total × 10^decimals</code>.  
             For beginners, leaving decimals at 0 is simplest.
           </p>
         </div>
 
         <div className="modal-action">
-          <button className="btn" onClick={() => setModalState(false)}>
-            Close
-          </button>
+          <button className="btn" onClick={() => setModalState(false)}>Close</button>
           <button
             type="button"
             className={`btn btn-success ${assetName && unitName && total ? '' : 'btn-disabled'}`}
