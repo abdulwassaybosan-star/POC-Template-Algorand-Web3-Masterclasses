@@ -1,3 +1,5 @@
+# 🚨🚨🚨Please note that this template has been superseeded by https://github.com/Ganainmtech/Algorand-dApp-Quick-Start-Template-TypeScript
+
 # Web3 Masterclasses – POC Template
 
 This is a simple starter template for non-technical founders taking part in the Algorand Web3 Masterclasses. It includes:
